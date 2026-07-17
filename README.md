@@ -60,3 +60,39 @@ This project strengthened my understanding of:
 - Returning calculated values
 - Implementing menu-driven applications
 - Managing structured data
+
+  ## Python Concepts Used
+
+- Arrays (Lists)
+- Functions
+- User Input
+- For Loops
+- Conditional Statements
+- Searching
+- Menu Systems
+- String Manipulation
+
+## Technologies
+
+- Python 3
+
+## How to Run
+
+```bash
+python student_database_management.py
+```
+
+or on Windows
+
+```bash
+py student_database_management.py
+```
+
+## Future Improvements
+
+- Implement Update Student Information
+- Store records in CSV files
+- Add Delete Student feature
+- Sort students by grade
+- Improve average calculation
+- Add exception handling
