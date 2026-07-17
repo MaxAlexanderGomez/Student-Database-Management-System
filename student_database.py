@@ -1,200 +1,136 @@
 # Max Gomez
 # Student score management program
 
-names = []
-student_ids = []
-score_1 = []
-score_2 = []
-score_3 = []
+# Five ARRAYS to be used total. One for name and ID
+
+NamesArray = []
+IdArray = []
+
+# Score arrays
+Score1Array = []
+Score2Array = []
+Score3Array = []
 
 
-def populate_arrays():
-    """Collect information for four students."""
+# Function to populate arrays
+def PopulateArray():
 
-    # Prevent duplicate entries if P is selected again.
-    names.clear()
-    student_ids.clear()
-    score_1.clear()
-    score_2.clear()
-    score_3.clear()
+    # For loop in the range of 4 values
+    for position in range(0, 4):
 
-    for position in range(4):
-        print(f"\nEntering student {position + 1} of 4")
+        # Name array
+        name = input("Please enter a student's name :\n")
+        NamesArray.append(name)
 
-        name = input("Please enter the student's name: ")
-        student_id = input("Please enter the student's ID: ")
+        # ID array
+        IDs = input("Please enter the student's ID:\n")
+        IdArray.append(IDs)
 
-        try:
-            first_score = float(input("Please enter the first score: "))
-            second_score = float(input("Please enter the second score: "))
-            third_score = float(input("Please enter the third score: "))
-        except ValueError:
-            print("Scores must be numbers. Please enter this student again.")
-            return populate_arrays()
+        # First score
+        firstscore = input("Please enter first score:\n")
+        Score1Array.append(firstscore)
 
-        names.append(name)
-        student_ids.append(student_id)
-        score_1.append(first_score)
-        score_2.append(second_score)
-        score_3.append(third_score)
+        # Second score
+        secondscore = input("Please enter scond score:\n")
+        Score2Array.append(secondscore)
 
-    print("\nStudent information was successfully entered.")
+        # Third score
+        thirdscore = input("Please enter third score:\n")
+        Score3Array.append(thirdscore)
 
 
-def find_student_position():
-    """Find and return a student's array position using the ID."""
+# Function to search for a student
+def SearchAccount():
 
-    student_to_search = input("Please enter the student's ID: ")
+    studenttosearch = input("Please enter the ID of the student:\n")
 
-    for position in range(len(student_ids)):
-        if student_to_search == student_ids[position]:
-            return position
+    # Search through all students
+    for position in range(0, 4):
 
-    print("Student ID was not found.")
-    return None
+        if (studenttosearch == IdArray[position]):
 
+            print("The student name is: " + NamesArray[position])
+            print("ID is: " + IdArray[position])
+            print("First score is: " + str(Score1Array[position]))
+            print("Second score is: " + str(Score2Array[position]))
+            print("Third score is: " + str(Score3Array[position]))
 
-def display_student():
-    """Display one student's information."""
-
-    if not student_ids:
-        print("No student information has been entered yet.")
-        return
-
-    position = find_student_position()
-
-    if position is not None:
-        print("\nStudent Information")
-        print("-------------------")
-        print(f"Name: {names[position]}")
-        print(f"ID: {student_ids[position]}")
-        print(f"First score: {score_1[position]:.2f}")
-        print(f"Second score: {score_2[position]:.2f}")
-        print(f"Third score: {score_3[position]:.2f}")
-
-
-def average_grade(first_score, second_score, third_score):
-    """Calculate and return the average of three scores."""
-
-    return (first_score + second_score + third_score) / 3
-
-
-def find_grade(average):
-    """Return the letter grade for an average score."""
-
-    if average >= 90:
-        return "A"
-    elif average >= 80:
-        return "B"
-    elif average >= 70:
-        return "C"
-    elif average >= 60:
-        return "D"
-    else:
-        return "F"
-
-
-def calculate_grade():
-    """Find a student and display the average and letter grade."""
-
-    if not student_ids:
-        print("No student information has been entered yet.")
-        return
-
-    position = find_student_position()
-
-    if position is not None:
-        average = average_grade(
-            score_1[position],
-            score_2[position],
-            score_3[position]
-        )
-
-        letter_grade = find_grade(average)
-
-        print(f"\nStudent: {names[position]}")
-        print(f"Average score: {average:.2f}")
-        print(f"Letter grade: {letter_grade}")
-
-
-def update_student():
-    """Update the name and scores for an existing student."""
-
-    if not student_ids:
-        print("No student information has been entered yet.")
-        return
-
-    position = find_student_position()
-
-    if position is None:
-        return
-
-    print("Press Enter to keep the existing value.")
-
-    new_name = input(f"Name [{names[position]}]: ")
-    new_id = input(f"ID [{student_ids[position]}]: ")
-
-    if new_name:
-        names[position] = new_name
-
-    if new_id:
-        student_ids[position] = new_id
-
-    try:
-        new_score_1 = input(f"First score [{score_1[position]}]: ")
-        new_score_2 = input(f"Second score [{score_2[position]}]: ")
-        new_score_3 = input(f"Third score [{score_3[position]}]: ")
-
-        if new_score_1:
-            score_1[position] = float(new_score_1)
-
-        if new_score_2:
-            score_2[position] = float(new_score_2)
-
-        if new_score_3:
-            score_3[position] = float(new_score_3)
-
-    except ValueError:
-        print("A score was not updated because it was not a valid number.")
-        return
-
-    print("Student information was updated.")
-
-
-def display_menu():
-    """Display the menu and return the user's selection."""
-
-    print("\n**** MENU OPTIONS ****")
-    print("P - Populate student information")
-    print("U - Update student information")
-    print("D - Display student information")
-    print("C - Calculate a student's grade")
-    print("E - Exit")
-
-    return input("Please enter your choice: ").strip().upper()
-
-
-def main():
-    """Run the student score program."""
-
-    while True:
-        choice = display_menu()
-
-        if choice == "P":
-            populate_arrays()
-        elif choice == "U":
-            update_student()
-        elif choice == "D":
-            display_student()
-        elif choice == "C":
-            calculate_grade()
-        elif choice == "E":
-            print("Thank you for using the program.")
-            print("Bye")
             break
-        else:
-            print("Invalid choice. Please try again.")
 
 
-if __name__ == "__main__":
-    main()
+# Find average grade
+def Averagegrade(firstscore, secondscore, thirdscore):
+
+    total = firstscore + secondscore + thirdscore / 3
+    return total
+
+
+# Function for letter grading
+def findgrade(total):
+
+    grade = ""
+
+    # Over 90 for A
+    if (total >= 90):
+        grade = "A"
+
+    # Between 80 and 89
+    elif (total >= 80 and total < 89):
+        grade = "B"
+
+    # Between 70 and 79
+    elif (total >= 70 and total < 79):
+        grade = "C"
+
+    # Between 60 and 69
+    elif (total >= 60 and total < 69):
+        grade = "D"
+
+    # Below 60
+    elif (total < 60):
+        grade = "F"
+
+    return grade
+
+
+# Function to display menu
+def displaymenu():
+
+    print("**** MENU OPTIONS ****")
+    print("Type P to populate the student information.")
+    print("Type U to update student Information")
+    print("Type D to display the student information.")
+    print("Type C to calculate the Grade.")
+    print("Type E to exit")
+
+    response = input("Please enter your choice:\n")
+    return response
+
+
+# Main program
+choice = displaymenu()
+
+while (choice != ""):
+
+    # Populate arrays
+    if (choice == "P"):
+        PopulateArray()
+
+    # Search for a student
+    elif (choice == "D"):
+        SearchAccount()
+
+    # Exit
+    elif (choice == "E"):
+        print("Thank you for using the program.")
+        print("Bye")
+        break
+
+    # Invalid choice
+    else:
+        print("Invalid choice. Please try again!")
+
+    # Display menu again
+    choice = displaymenu()
+
+# FINAL
